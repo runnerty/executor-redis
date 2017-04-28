@@ -9,7 +9,7 @@ class redisExecutor extends Execution {
     super(process);
   }
 
-  exec() {
+  exec(res) {
     var _this = this;
     var endOptions = {end: 'end'};
 
@@ -86,36 +86,25 @@ class redisExecutor extends Execution {
       });
     }
 
-    return new Promise(function (resolve, reject) {
-      _this.getValues()
+    if (params.command) {
+      executeCommand(params)
         .then((res) => {
-          if (res.command) {
-            executeCommand(res)
-              .then((res) => {
-                endOptions.end = 'end';
-                endOptions.execute_db_results = res;
-                _this.end(endOptions, resolve, reject);
-              })
-              .catch(function (err) {
-                endOptions.end = 'error';
-                endOptions.messageLog = `executeRedis executeCommand: ${err}`;
-                endOptions.execute_err_return = `executeRedis executeCommand: ${err}`;
-                _this.end(endOptions, resolve, reject);
-              });
-          } else {
-            endOptions.end = 'error';
-            endOptions.messageLog = `executeRedis: command not set and command_file nor supported yet for ${_this.processId}(${_this.processUId}.`;
-            endOptions.execute_err_return = `executeRedis: command not set and command_file nor supported yet for ${_this.processId}(${_this.processUId}.`;
-            _this.end(endOptions, resolve, reject);
-          }
+          endOptions.end = 'end';
+          endOptions.execute_db_results = res;
+          _this.end(endOptions);
         })
-        .catch((err) => {
+        .catch(function (err) {
           endOptions.end = 'error';
-          endOptions.messageLog = `redisExecutor Error getValues: ${err}`;
-          endOptions.execute_err_return = `redisExecutor Error getValues: ${err}`;
-          _this.end(endOptions, resolve, reject);
+          endOptions.messageLog = `executeRedis executeCommand: ${err}`;
+          endOptions.execute_err_return = `executeRedis executeCommand: ${err}`;
+          _this.end(endOptions);
         });
-    });
+    } else {
+      endOptions.end = 'error';
+      endOptions.messageLog = `executeRedis: command not set and command_file nor supported yet for ${_this.processId}(${_this.processUId}.`;
+      endOptions.execute_err_return = `executeRedis: command not set and command_file nor supported yet for ${_this.processId}(${_this.processUId}.`;
+      _this.end(endOptions);
+    }
   }
 }
 
