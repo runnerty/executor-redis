@@ -1,6 +1,6 @@
 {
   "name": "runnerty-executor-redis",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Runnerty module: Redis executor",
   "author": "Coderty",
   "license": "ISC",
