@@ -51,7 +51,7 @@ class redisExecutor extends Execution {
           altValueReplace: "null"
         };
 
-        var _query = await _this.paramsReplace(values.command, options);
+        var _query = await _this.paramsReplace(res.command, options);
         var redisClient = redis.createClient(configValues.port || "6379", configValues.host, configValues.options), multi;
         if(configValues.password && configValues.password !== ""){
           redisClient.auth(configValues.password);
@@ -86,8 +86,8 @@ class redisExecutor extends Execution {
       });
     }
 
-    if (params.command) {
-      executeCommand(params)
+    if (res.command) {
+      executeCommand(res)
         .then((res) => {
           endOptions.end = "end";
           endOptions.execute_db_results = res;
