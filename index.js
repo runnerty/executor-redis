@@ -1,6 +1,6 @@
 "use strict";
 
-var redis = require('redis');
+var redis = require("redis");
 
 var Execution = global.ExecutionClass;
 
@@ -11,7 +11,7 @@ class redisExecutor extends Execution {
 
   exec(res) {
     var _this = this;
-    var endOptions = {end: 'end'};
+    var endOptions = {end: "end"};
 
     function commandsFormat(commandsArr) {
       var commands = [];
@@ -48,18 +48,18 @@ class redisExecutor extends Execution {
           useArgsValues: true,
           useProcessValues: true,
           useGlobalValues: true,
-          altValueReplace: 'null'
+          altValueReplace: "null"
         };
 
         var _query = await _this.paramsReplace(values.command, options);
         var redisClient = redis.createClient(configValues.port || "6379", configValues.host, configValues.options), multi;
-        if(configValues.password && configValues.password !== ''){
+        if(configValues.password && configValues.password !== ""){
           redisClient.auth(configValues.password);
         }
 
         redisClient.on("error", function (err) {
-          _this.logger.log('error', `Could not connect to Redis: ` + err);
-          reject(`Could not connect to Redis: ` + err);
+          _this.logger.log("error", "Could not connect to Redis: " + err);
+          reject("Could not connect to Redis: " + err);
         });
 
         redisClient.on("ready", function () {
@@ -72,15 +72,15 @@ class redisExecutor extends Execution {
               .exec(function (err, replies) {
                 redisClient.quit();
                 if (err) {
-                  _this.logger.log('error', `Error query Redis (${commands}): ` + err);
+                  _this.logger.log("error", `Error query Redis (${commands}): ` + err);
                   reject(`Error query Redis (${commands}): ` + err);
                 } else {
                   resolve(replies);
                 }
               });
           } catch (err) {
-            _this.logger.log('error', `Error query Redis, check commands: ` + commands, err);
-            reject(`Error query Redis, check commands: ` + commands, err);
+            _this.logger.log("error", "Error query Redis, check commands: " + commands, err);
+            reject("Error query Redis, check commands: " + commands, err);
           }
         });
       });
@@ -89,18 +89,18 @@ class redisExecutor extends Execution {
     if (params.command) {
       executeCommand(params)
         .then((res) => {
-          endOptions.end = 'end';
+          endOptions.end = "end";
           endOptions.execute_db_results = res;
           _this.end(endOptions);
         })
         .catch(function (err) {
-          endOptions.end = 'error';
+          endOptions.end = "error";
           endOptions.messageLog = `executeRedis executeCommand: ${err}`;
           endOptions.execute_err_return = `executeRedis executeCommand: ${err}`;
           _this.end(endOptions);
         });
     } else {
-      endOptions.end = 'error';
+      endOptions.end = "error";
       endOptions.messageLog = `executeRedis: command not set and command_file nor supported yet for ${_this.processId}(${_this.processUId}.`;
       endOptions.execute_err_return = `executeRedis: command not set and command_file nor supported yet for ${_this.processId}(${_this.processUId}.`;
       _this.end(endOptions);
