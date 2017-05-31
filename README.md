@@ -4,7 +4,7 @@
 ```json
 {
   "id": "redis_default",
-  "type": "runnerty-executor-redis",
+  "type": "@runnerty/executor-redis",
   "password": "redis_password",
   "host": "redishost.com",
   "port": "6379",
@@ -26,6 +26,5 @@
   "command": "KEYS *"
 }
 ```
-
 
 [Runnerty]: http://www.runnerty.io
