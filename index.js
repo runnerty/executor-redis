@@ -52,7 +52,7 @@ class redisExecutor extends Execution {
         };
 
         var _query = await _this.paramsReplace(res.command, options);
-        var redisClient = redis.createClient(configValues.port || "6379", configValues.host, configValues.options), multi;
+        var redisClient = redis.createClient(configValues.port || "6379", configValues.host, configValues.options), multi; // eslint-disable-line no-unused-vars
         if(configValues.password && configValues.password !== ""){
           redisClient.auth(configValues.password);
         }
