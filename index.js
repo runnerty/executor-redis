@@ -1,6 +1,7 @@
 "use strict";
 
 var redis = require("redis");
+var loadFile = global.libUtils.loadSQLFile;
 
 var Execution = global.ExecutionClass;
 
@@ -13,32 +14,13 @@ class redisExecutor extends Execution {
     var _this = this;
     var endOptions = {end: "end"};
 
-    function commandsFormat(commandsArr) {
-      var commands = [];
-
-      if ((commandsArr[0]) instanceof Array) {
-        commands = commandsArr;
-      } else {
-        commands.push(commandsArr);
+    function commandsFormat(command) {
+      let res = [];
+      let lines = command.split(/\r\n|\n/);
+      for (let i = 0; i < lines.length; i++) {
+        res.push(lines[i].trim().split(" "));
       }
-
-      var commandsLength = commands.length;
-      var result = [];
-
-      for (var x = 0; x < commandsLength; x++) {
-        var cmd = commands[x];
-        var cmdLength = cmd.length;
-        var cmdFormat = [];
-
-        for (var i = 0; i < cmdLength; i++) {
-          var cmdItem = cmd[i];
-          var cmdItemFormat = cmdItem;
-          cmdFormat.push(cmdItemFormat);
-        }
-        result.push(cmdFormat);
-      }
-
-      return result;
+      return res;
     }
 
     function executeCommand(configValues) {
@@ -51,8 +33,19 @@ class redisExecutor extends Execution {
           altValueReplace: "null"
         };
 
+        if(configValues.command_file){
+          await loadFile(configValues.command_file)
+            .then((fileContent) => {
+              res.command = fileContent;
+            })
+            .catch(function (err) {
+              _this.logger.log("error", "Loading redis command file: " + err);
+              reject("Loading redis command file: " + err);
+            });
+        }
+
         var _query = await _this.paramsReplace(res.command, options);
-        var redisClient = redis.createClient(configValues.port || "6379", configValues.host, configValues.options), multi; // eslint-disable-line no-unused-vars
+        var redisClient = redis.createClient(configValues.port || "6379", configValues.host, configValues.options);
         if(configValues.password && configValues.password !== ""){
           redisClient.auth(configValues.password);
         }
@@ -63,8 +56,8 @@ class redisExecutor extends Execution {
         });
 
         redisClient.on("ready", function () {
-          var commands = _query;
-          endOptions.command_executed = commandsFormat(commands);
+          var commands = commandsFormat(_query);
+          endOptions.command_executed = commands;
 
           try {
             redisClient
@@ -86,7 +79,7 @@ class redisExecutor extends Execution {
       });
     }
 
-    if (res.command) {
+    if (res.command || res.command_file) {
       executeCommand(res)
         .then((res) => {
           endOptions.end = "end";
