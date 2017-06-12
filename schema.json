@@ -12,7 +12,8 @@
           "crypted_password": {"type": "string"},
           "options": {"type": "object"},
           "host": {"type": "string"},
-          "port": {"type": "string"}
+          "port": {"type": "string"},
+          "db_number": {"type": "number"}
       }
     },
     "params":

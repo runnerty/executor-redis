@@ -45,10 +45,13 @@ class redisExecutor extends Execution {
         }
 
         var _query = await _this.paramsReplace(res.command, options);
-        var redisClient = redis.createClient(configValues.port || "6379", configValues.host, configValues.options);
+        
         if(configValues.password && configValues.password !== ""){
-          redisClient.auth(configValues.password);
+          configValues.options.password = configValues.password || "";
         }
+        configValues.options.db = configValues.db_number || 0;
+
+        var redisClient = redis.createClient(configValues.port || "6379", configValues.host, configValues.options);
 
         redisClient.on("error", function (err) {
           _this.logger.log("error", "Could not connect to Redis: " + err);
