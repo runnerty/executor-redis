@@ -13,7 +13,7 @@
           "options": {"type": "object"},
           "host": {"type": "string"},
           "port": {"type": "string"},
-          "db_number": {"type": "number"}
+          "db": {"type": "number"}
       }
     },
     "params":

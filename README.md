@@ -8,7 +8,7 @@
   "password": "redis_password",
   "host": "redishost.com",
   "port": "6379",
-  "db_number": "0",
+  "db": "0",
   "options": {}
 }
 ```

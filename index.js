@@ -49,7 +49,7 @@ class redisExecutor extends Execution {
         if(configValues.password && configValues.password !== ""){
           configValues.options.password = configValues.password || "";
         }
-        configValues.options.db = configValues.db_number || 0;
+        configValues.options.db = configValues.db || 0;
 
         var redisClient = redis.createClient(configValues.port || "6379", configValues.host, configValues.options);
 
