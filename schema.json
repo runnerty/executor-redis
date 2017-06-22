@@ -1,38 +1,73 @@
 {
-  "$schema": "http://json-schema.org/draft-04/schema#",
-  "title": "runnerty-executor-redis",
+  "$schema": "http://json-schema.org/draft-06/schema#",
+  "title": "@runnerty-executor-redis",
   "definitions": {
-    "config":
-      { "type": "object",
-        "required": ["id","type","password","host"],
-        "properties":{
-          "id": {"type": "string"},
-          "type": {"type": "string", "pattern": "runnerty-executor-redis"},
-          "password": {"type": "string"},
-          "crypted_password": {"type": "string"},
-          "options": {"type": "object"},
-          "host": {"type": "string"},
-          "port": {"type": "string"},
-          "db": {"type": "number"}
+    "config": {
+      "type": "object",
+      "required": [
+        "id",
+        "type",
+        "password",
+        "host"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "pattern": "@runnerty-executor-redis"
+        },
+        "password": {
+          "type": "string"
+        },
+        "crypted_password": {
+          "type": "string"
+        },
+        "options": {
+          "type": "object"
+        },
+        "host": {
+          "type": "string"
+        },
+        "port": {
+          "type": "string"
+        },
+        "db": {
+          "type": "number"
+        }
       }
     },
-    "params":
-    {
-      "oneOf":[
+    "params": {
+      "oneOf": [
         {
           "type": "object",
-          "required": ["id","command"],
-          "properties":{
-            "id": {"type": "string"},
-            "command": {"type": "string"}
+          "required": [
+            "id",
+            "command"
+          ],
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "command": {
+              "type": "string"
+            }
           }
         },
         {
           "type": "object",
-          "required": ["id","command_file"],
-          "properties":{
-            "id": {"type": "string"},
-            "command_file": {"type": "string"}
+          "required": [
+            "id",
+            "command_file"
+          ],
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "command_file": {
+              "type": "string"
+            }
           }
         }
       ]
