@@ -86,19 +86,19 @@ class redisExecutor extends Execution {
       executeCommand(res)
         .then((res) => {
           endOptions.end = "end";
-          endOptions.execute_db_results = res;
+          endOptions.data_output = res;
           _this.end(endOptions);
         })
         .catch(function (err) {
           endOptions.end = "error";
           endOptions.messageLog = `executeRedis executeCommand: ${err}`;
-          endOptions.execute_err_return = `executeRedis executeCommand: ${err}`;
+          endOptions.err_output = `executeRedis executeCommand: ${err}`;
           _this.end(endOptions);
         });
     } else {
       endOptions.end = "error";
       endOptions.messageLog = `executeRedis: command not set and command_file nor supported yet for ${_this.processId}(${_this.processUId}.`;
-      endOptions.execute_err_return = `executeRedis: command not set and command_file nor supported yet for ${_this.processId}(${_this.processUId}.`;
+      endOptions.err_output = `executeRedis: command not set and command_file nor supported yet for ${_this.processId}(${_this.processUId}.`;
       _this.end(endOptions);
     }
   }

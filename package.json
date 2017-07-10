@@ -1,6 +1,6 @@
 {
   "name": "@runnerty/executor-redis",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Runnerty module: Redis executor",
   "author": "Coderty",
   "license": "MIT",
