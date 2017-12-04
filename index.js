@@ -27,7 +27,7 @@ class redisExecutor extends Execution {
       return new Promise(async function (resolve, reject) {
 
         var options = {
-          useArgsValues: true,
+          useExtraValue: configValues.args || false,
           useProcessValues: true,
           useGlobalValues: true,
           altValueReplace: "null"
@@ -85,8 +85,13 @@ class redisExecutor extends Execution {
     if (res.command || res.command_file) {
       executeCommand(res)
         .then((res) => {
+          // STANDARD OUTPUT
           endOptions.end = "end";
           endOptions.data_output = res;
+          // EXTRA DATA OUTPUT
+          endOptions.extra_output = {};
+          endOptions.extra_output.db_firstRow = JSON.stringify(res[0]);
+
           _this.end(endOptions);
         })
         .catch(function (err) {
