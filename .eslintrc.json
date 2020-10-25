@@ -3,32 +3,43 @@
     "browser": true,
     "node": true
   },
-  "extends": "eslint:recommended",
+  "extends": ["plugin:prettier/recommended"],
   "globals": {
     "Promise": true,
     "global": true
   },
   "parserOptions": {
-    "ecmaVersion": 2017,
+    "ecmaVersion": 2018,
     "sourceType": "module",
     "ecmaFeatures": {
       "jsx": true
     }
   },
   "rules": {
-    "indent": ["error", 2, {"SwitchCase":1}],
+    "indent": [
+      "error",
+      2,
+      {
+        "SwitchCase": 1
+      }
+    ],
     "default-case": "error",
-    "linebreak-style": [
+    "linebreak-style": ["error", "unix"],
+    "semi": ["error", "always"],
+    "no-undef": "error",
+    "no-var": "error",
+    "no-caller": "error",
+    "no-throw-literal": "error",
+    "no-unneeded-ternary": "error",
+    "prefer-const": "error",
+    "comma-spacing": [
       "error",
-      "unix"
+      {
+        "before": false,
+        "after": true
+      }
     ],
-    "quotes": [
-      "error",
-      "double"
-    ],
-    "semi": [
-      "error",
-      "always"
-    ]
+    "comma-style": ["error", "last"],
+    "handle-callback-err": ["error", "^(err|error)$"]
   }
 }
