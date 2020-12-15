@@ -30,6 +30,7 @@ class redisExecutor extends Execution {
           useGlobalValues: true,
           altValueReplace: 'null'
         };
+        if (!configValues.options) configValues.options = {};
 
         if (configValues.command_file) {
           try {
@@ -81,7 +82,12 @@ class redisExecutor extends Execution {
         const response = await executeCommand(res);
         // STANDARD OUTPUT
         endOptions.end = 'end';
-        endOptions.data_output = response;
+        if (response.length == 1 && response[0]) {
+          endOptions.data_output = response[0];
+        } else {
+          endOptions.data_output = response;
+        }
+
         // EXTRA DATA OUTPUT
         endOptions.extra_output = {};
         if (response && response[0]) {
