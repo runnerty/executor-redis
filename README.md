@@ -29,7 +29,7 @@ npm i @runnerty/executor-redis
   "options": {}
 }
 ```
-
+More info about options [here.](https://github.com/NodeRedis/node-redis/blob/master/README.md#options-object-properties)
 ### Plan sample:
 ```json
 {

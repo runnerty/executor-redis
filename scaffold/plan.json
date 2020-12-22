@@ -1,0 +1,50 @@
+{
+  "$schema": "https://raw.githubusercontent.com/runnerty/schemas/master/schemas/3.0/plan.json",
+  "chains": [
+    {
+      "id": "CHAIN_REDIS_SAMPLES",
+      "name": "REDIS module example chain",
+      "defaults_processes": {
+        "notifications": {
+          "on_start": [
+            {
+              "id": "console_default",
+              "message": "@GETDATE('YYYY-MM-DD HH:mm:ss') START: PROCESS @GV(PROCESS_ID)"
+            }
+          ],
+          "on_fail": [
+            {
+              "id": "console_default",
+              "message": "@GETDATE('YYYY-MM-DD HH:mm:ss') ERROR: PROCESS @GV(PROCESS_ID): @GV(PROCESS_EXEC_ERR_OUTPUT)",
+              "mode": "error"
+            }
+          ],
+          "on_end": [
+            {
+              "id": "console_default",
+              "message": "@GETDATE('YYYY-MM-DD HH:mm:ss') END: PROCESS @GV(PROCESS_ID)"
+            }
+          ]
+        }
+      },
+      "processes": [
+        {
+          "id": "REDIS_CMDS_FILE",
+          "name": "REDIS COMMANDS FILE SAMPLE",
+          "exec": {
+            "id": "redis_default",
+            "command_file": "./redis-commands/commands.txt"
+          }
+        },
+        {
+          "id": "REDIS_CMD_SIMPLE",
+          "name": "REDIS COMMAND SIMPLE",
+          "exec": {
+            "id": "redis_default",
+            "command": "KEYS *"
+          }
+        }
+      ]
+    }
+  ]
+}

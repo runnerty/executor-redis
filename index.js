@@ -2,9 +2,9 @@
 
 const redis = require('redis');
 const loadFile = global.libUtils.loadSQLFile;
-const Execution = global.ExecutionClass;
+const Executor = require('@runnerty/module-core').Executor;
 
-class redisExecutor extends Execution {
+class redisExecutor extends Executor {
   constructor(process) {
     super(process);
   }
