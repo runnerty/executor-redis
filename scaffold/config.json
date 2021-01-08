@@ -1,0 +1,12 @@
+{
+  "executors": [
+    {
+      "id": "redis_default",
+      "type": "@runnerty-executor-redis",
+      "password": "",
+      "host": "localhost",
+      "port": "6379",
+      "db": 0
+    }
+  ]
+}
