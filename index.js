@@ -1,7 +1,7 @@
 'use strict';
 
 const redis = require('redis');
-const loadFile = global.libUtils.loadSQLFile;
+const fsp = require('fs').promises;
 const Executor = require('@runnerty/module-core').Executor;
 
 class redisExecutor extends Executor {
@@ -34,8 +34,9 @@ class redisExecutor extends Executor {
 
         if (configValues.command_file) {
           try {
-            const fileContent = await loadFile(configValues.command_file);
-            res.command = fileContent;
+            // Load file:
+            await fsp.access(configValues.command_file, fsp.constants.F_OK | fsp.constants.W_OK);
+            res.command = await fsp.readFile(configValues.command_file, 'utf8');
           } catch (err) {
             this.logger.log('error', 'Loading redis command file: ' + err);
             reject('Loading redis command file: ' + err);
