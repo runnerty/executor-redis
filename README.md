@@ -19,18 +19,18 @@ Through NPM
 npm i @runnerty/executor-redis
 ```
 
-You can also add modules to your project with [runnerty-cli]
+You can also add modules to your project with [runnerty]
 
 ```bash
-npx runnerty-cli add @runnerty/executor-redis
+npx runnerty add @runnerty/executor-redis
 ```
 
-This command installs the module in your project, adds example configuration in your `config.json` and creates an example plan of use.
+This command installs the module in your project, adds example configuration in your [config.json] and creates an example plan of use.
 
-If you have installed [runnerty-cli] globally you can include the module with this command:
+If you have installed [runnerty] globally you can include the module with this command:
 
 ```bash
-rty add @runnerty/executor-redis
+runnerty add @runnerty/executor-redis
 ```
 
 ### Configuration sample:
@@ -65,7 +65,7 @@ More info about options [here.](https://github.com/NodeRedis/node-redis/blob/mas
 * `PROCESS_EXEC_DATA_OUTPUT`: Redis output message. 
 * `PROCESS_EXEC_ERR_OUTPUT`: Error output message.
 
-[Runnerty]: http://www.runnerty.io
+[Runnerty]: https://www.runnerty.io
 [downloads-image]: https://img.shields.io/npm/dm/@runnerty/executor-redis.svg
 [npm-url]: https://www.npmjs.com/package/@runnerty/executor-redis
 [npm-image]: https://img.shields.io/npm/v/@runnerty/executor-redis.svg
@@ -73,4 +73,3 @@ More info about options [here.](https://github.com/NodeRedis/node-redis/blob/mas
 [david-badge-url]: https://david-dm.org/runnerty/executor-redis
 [config.json]: http://docs.runnerty.io/config/
 [plan.json]: http://docs.runnerty.io/plan/
-[runnerty-cli]: https://www.npmjs.com/package/runnerty-cli
