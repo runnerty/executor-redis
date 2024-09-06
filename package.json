@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/runnerty/executor-redis#readme",
   "dependencies": {
-    "@runnerty/module-core": "~3.0.6",
+    "@runnerty/module-core": "~3.1.1",
     "redis": "~3.1.2"
   },
   "devDependencies": {
